@@ -1,0 +1,60 @@
+<div class="main">
+  <div class="inner">
+    <div class="user__wrapper">
+      <p class="page-heading">
+        <% @prototype.title %>
+      </p>
+        <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
+        <% if current_user == @prototype.user %>
+         <div class="prototype__manage">
+          <%= link_to '編集', edit_prototype_path(@prototype), class: :prototype__btn %>   
+          <%= link_to '削除', prototype_path(@prototype), method: :delete, class: :prototype__btn %>
+         </div>
+        <% end %>
+      </h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="table__col1"><span>投稿者</span></th>
+            <td class="table__col2"><%= @prototype.user.name %></td>
+          </tr>
+          <tr>
+            <th class="table__col1"><span>画像</span></th>
+            <td class="table__col2"><%= image_tag @prototype.image %></td>
+          </tr>
+          <tr>
+            <th class="table__col1"><span>キャッチコピー</span></th>
+            <td class="table__col2"><%= @prototype.catch_copy %></td>
+          </tr>
+          <tr>
+            <th class="table__col1"><span>コンセプト</span></th>
+            <td class="table__col2"><%= @prototype.concept %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="prototype__comments">
+       <% if user_signed_in? %>
+        <%= form_with model: [@prototype, @comment], local: true do |f|%>
+        <div class="field">
+          <%= f.label :text, "コメント" %><br />
+          <%= f.text_field :text %>
+        </div>
+        <div class="actions">
+          <%= f.submit "送信する", class: :form__btn %>
+        </div>
+       <% end %>
+      <% end %>
+      <ul class="comments_lists">
+          <% @comments.each do |comment| %>
+            <li class="comments_list">
+              <%= comment.text%>
+              <%= link_to "（#{comment.user.name}）", user_path(comment.user), class: :comment_user %>
+            </li>
+          <% end %>
+      </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
