@@ -4,7 +4,7 @@ class PrototypesController < ApplicationController
   before_action :set_prototype, except: [:index, :new, :create]
   
   def index
-    @prototype = Prototype.includes(:user)
+    @prototypes = Prototype.includes(:user)
   end
 
   def new
@@ -35,6 +35,7 @@ class PrototypesController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @prototype.comments
+    redirect_to root_path unless current_user == @prototype.user
   end
 
   def update
@@ -57,7 +58,6 @@ class PrototypesController < ApplicationController
   end
 
   def contributor_confirmation
-    redirect_to root_path unless current_user == @prototype.user
   end
 end
 
