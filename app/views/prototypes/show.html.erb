@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="user__wrapper">
       <p class="page-heading">
-        <% @prototype.title %>
+        <%= @prototype.title %>
       </p>
         <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
         <% if current_user == @prototype.user %>
@@ -11,6 +11,8 @@
           <%= link_to '削除', prototype_path(@prototype), method: :delete, class: :prototype__btn %>
          </div>
        <% end %>
+        <div class="prototype__image">
+        <%= image_tag @prototype.image %><%= text_field :title %>
         <div class="prototype__image">
         <%= image_tag @prototype.image %>
       </div>
